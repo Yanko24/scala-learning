@@ -3,15 +3,15 @@
 Scala语言是一门多范式（多范式是指：面向对象、面向过程、范型和函数式四种程序设计方法）的编程语言，平滑的集成了面向对象和函数式语言的特性。Scala语言被Martin Odersky在2001年开始设计。
 
 - 特点
-    - 和Java一样，运行在JVM上
-    - 可以直接使用Java的类库
-    - Scala语言非常的简洁（简洁不是简单）高效
-    - 同时支持面向对象和面向函数式编程
+  - 和Java一样，运行在JVM上
+  - 可以直接使用Java的类库
+  - Scala语言非常的简洁（简洁不是简单）高效
+  - 同时支持面向对象和面向函数式编程
 - 阅读资料
-    - [尚硅谷Scala视频（主要）](https://www.bilibili.com/video/BV1Xh411S7bP)
-    - [Scala官网基础语法速查手册](https://docs.scala-lang.org/zh-cn/cheatsheets/index.html)
-    - [Scala官网文档](https://docs.scala-lang.org/zh-cn/tour/tour-of-scala.html)
-    - [大佬的笔记](https://github.com/tch0/notes/blob/master/Scala.md)
+  - [尚硅谷Scala视频（主要）](https://www.bilibili.com/video/BV1Xh411S7bP)
+  - [Scala官网基础语法速查手册](https://docs.scala-lang.org/zh-cn/cheatsheets/index.html)
+  - [Scala官网文档](https://docs.scala-lang.org/zh-cn/tour/tour-of-scala.html)
+  - [大佬的笔记](https://github.com/tch0/notes/blob/master/Scala.md)
 
 ##### 1. 环境配置
 
@@ -515,55 +515,55 @@ def 函数名(参数名[: 参数类型], 参数名[: 参数类型]): 函数返�
 
 - 可变参数
 
-    - `def function(str: String*): Unit = {}`
-    - 如果参数列表中有多个参数，那么可变参数要放置在最后
+  - `def function(str: String*): Unit = {}`
+  - 如果参数列表中有多个参数，那么可变参数要放置在最后
 
 - 参数默认值
 
-    - `def function(name: String = "alice"): Unit = {}`
-    - 一般将有默认值的参数放在参数列表的后面
+  - `def function(name: String = "alice"): Unit = {}`
+  - 一般将有默认值的参数放在参数列表的后面
 
 - 带名参数
 
-    - 调用时带参数名称
+  - 调用时带参数名称
 
-      ```scala
-      def function(name: String = "bob", age: Int): Unit = {
-        println(s"${age}岁的${name}在学习Scala")
-      }
-      function("alice", 23)
-      function(age = 22)
-      ```
+    ```scala
+    def function(name: String = "bob", age: Int): Unit = {
+      println(s"${age}岁的${name}在学习Scala")
+    }
+    function("alice", 23)
+    function(age = 22)
+    ```
 
-    - 默认不使用参数名称的就是按照参数列表的顺序
+  - 默认不使用参数名称的就是按照参数列表的顺序
 
-    - 调用时带名参数必须在实参列表的末尾
+  - 调用时带名参数必须在实参列表的末尾
 
-    - 和默认参数一起使用很方便，有多个默认参数时，可以只根据参数名称覆盖其中一个
+  - 和默认参数一起使用很方便，有多个默认参数时，可以只根据参数名称覆盖其中一个
 
 - 函数至简原则
 
-    - return可以省略，Scala会使用函数体的最后一行代码作为返回值
+  - return可以省略，Scala会使用函数体的最后一行代码作为返回值
 
-    - 如果函数体只有一行代码，可以省略花括号
+  - 如果函数体只有一行代码，可以省略花括号
 
-    - 返回值类型如果能够推断出来，那么可以省略（:和返回值类型一起省略）
+  - 返回值类型如果能够推断出来，那么可以省略（:和返回值类型一起省略）
 
-    - 如果有return，则不能省略返回值类型，必须指定
+  - 如果有return，则不能省略返回值类型，必须指定
 
-    - 如果函数明确声明Unit，那么即使函数体中使用return关键字也不起作用
+  - 如果函数明确声明Unit，那么即使函数体中使用return关键字也不起作用
 
-    - Scala如果期望时无返回值类型，可以省略等号
+  - Scala如果期望时无返回值类型，可以省略等号
 
-    - 如果函数无参，但是声明了参数列表，那么调用时，小括号可加可不加
+  - 如果函数无参，但是声明了参数列表，那么调用时，小括号可加可不加
 
-    - 如果函数没有参数列表，那么小括号可以省略，调用时小括号必须省略
+  - 如果函数没有参数列表，那么小括号可以省略，调用时小括号必须省略
 
-    - 如果不关心名称，只关心逻辑处理，那么函数名（def）可以省略，也就是匿名函数
+  - 如果不关心名称，只关心逻辑处理，那么函数名（def）可以省略，也就是匿名函数
 
-      ```scala
-      val result = (name: String, age: Int) => s"${age}岁的${name}在学习Scala"
-      ```
+    ```scala
+    val result = (name: String, age: Int) => s"${age}岁的${name}在学习Scala"
+    ```
 
 ###### 3. 匿名函数
 
@@ -590,11 +590,11 @@ def 函数名(参数名[: 参数类型], 参数名[: 参数类型]): 函数返�
 
 - 匿名函数的简化原则
 
-    - 在调用以函数为参数的函数时，实参的类型可以忽略，会根据形参进行自动的推导
-    - 类型省略之后，发现只有一个参数，则圆括号可以省略；其他没有参数和参数超过1的永远不能省略圆括号，`f0(name => { println(name) }) `
-    - 如果匿名函数的函数体只有一行，花括号也可以省略，`f0(name => println(name))`
-    - 如果参数只出现一次，则参数省略且后面可以用`_`代替，实参和`=>`都可以省略，`f0(println(_))`
-    - 如果可以推导出当前传入的println是一个函数体，而不是调用语句，可以直接省略`_`，`f0(println)`
+  - 在调用以函数为参数的函数时，实参的类型可以忽略，会根据形参进行自动的推导
+  - 类型省略之后，发现只有一个参数，则圆括号可以省略；其他没有参数和参数超过1的永远不能省略圆括号，`f0(name => { println(name) }) `
+  - 如果匿名函数的函数体只有一行，花括号也可以省略，`f0(name => println(name))`
+  - 如果参数只出现一次，则参数省略且后面可以用`_`代替，实参和`=>`都可以省略，`f0(println(_))`
+  - 如果可以推导出当前传入的println是一个函数体，而不是调用语句，可以直接省略`_`，`f0(println)`
 
   ```scala
   // 示例，定义一个二元运算函数，只操作1和2两个数，具体做什么运算通过参数传入
@@ -667,3 +667,247 @@ def 函数名(参数名[: 参数类型], 参数名[: 参数类型]): 函数返�
 
 ######  5. 高阶函数案例
 
+- 使用特定函数对集合元素进行特定操作，得到新数组
+
+  ```scala
+  // 类似于对大数据集进行map操作，对集合中的元素+1
+  def arrayOperation(array: Array[Int], op: Int => Int): Array[Int] = {
+    for (elem <- array) yield op(elem)
+  }
+  
+  // 定义一个+1操作
+  def addOne(elem: Int): Int = {
+    elem + 1
+  }
+  
+  // 调用函数
+  val newArray = arrayOperation(arr, addOne)
+  println(newArray.mkString(","))
+  
+  // 传入匿名函数
+  val newArray2 = arrayOperation(arr, _ * 2)
+  println(newArrays.mkString(","))
+  ```
+
+- 函数嵌套
+
+  ```scala
+  // 函数的嵌套
+  def func(i: Int): String => Char => Boolean = {
+    def f1(s: String): Char => Boolean = {
+      def f2(c: Char): Boolean = {
+        !(i == 0 && s == "" && c == '0')
+      }
+      f2
+    }
+    f1
+  }
+  
+  println(func(0)("")('0'))
+  
+  // 匿名函数简化
+  def func1(i: Int): String => Char => Boolean = {
+    s => c => !(i == 0 && s == "" && c == '0')
+  }
+  
+  println(func1(0)("")('0'))
+  ```
+
+- 函数柯里化
+
+  ```scala
+  def func2(i: Int)(s: String)(c: Char): Boolean = {
+    !(i == 0 && s == "" && c == '0')
+  }
+  
+  println(func2(0)("")('0'))
+  ```
+
+###### 6. 函数的柯里化和闭包
+
+- 闭包
+  - 闭包的定义：如果一个函数，访问到了它外部（局部）变量的值，那么这个函数和它所处的环境，称为闭包
+  - 外部函数调用结束返回内层函数后，经过堆栈的调整，外部函数对应的参数都已经被释放了，所以内层函数是获取不到外层函数的参数的。为了能够在内部函数中使用非改函数的变量以及它们对应的值，就需要将其对应的值或者变量保存下来，这时会将执行的环境打一个包保存到堆里面
+- 柯里化
+  - 函数柯里化是指把一个参数列表的多个餐素变成多个参数列表，也就是将普通的多参函数变为高阶函数的过程
+  - 函数柯里化一定使用了闭包，但是闭包不一定要使用柯里化书写，但是一般情况下建议闭包使用柯里化形式编写
+
+###### 7. 递归函数
+
+- 递归：一个函数/方法在方法体内又调用了函数自身，称之为递归调用
+
+- 方法调用自身
+
+- 方法必须要有跳出的逻辑
+
+- 方法调出自身时，传递的参数应该有规律
+
+- Scala中的递归必须声明函数返回值类型
+
+- 函数式编程语言对递归做了一定的优化，递归函数调用时会占用大量栈空间，所以经过优化后引入了尾递归，每次的递归都会保存上一次递归的结果，在Scala中使用注解`@tailrec`可以表示这个递归是一个尾递归，如果不是尾递归会直接报错
+
+  ```scala
+  // 递归函数：一个函数/方法在方法体内部又调用了函数自身，称之为递归调用
+  def fact(n: Int): Int = {
+    if (n == 0) return 1
+    fact(n - 1) * n
+  }
+  
+  println(fact(5))
+  
+  // 尾递归调用
+  def tailFact(n: Int): Int = {
+    @tailrec
+    def loop(n: Int, currResult: Int): Int = {
+      if (n == 0) return currResult
+      loop(n - 1, currResult * n)
+    }
+    loop(n, 1)
+  }
+  
+  println(tailFact(5))
+  ```
+
+###### 8. 控制抽象
+
+- 值调用：按值传递参数，计算值后再传递
+
+- 名调用：按名称传递参数，将一段代码块传递给参数，使用过程中直接用实参代码块替换函数中使用形参的地方
+
+  ```scala
+  object Test11_ControlAbstract {
+    def main(args: Array[String]): Unit = {
+      // 1.传值参数
+      def f0(a: Int): Unit = {
+        println("a: " + a)
+        println("a: " + a)
+      }
+  
+      f0(23)
+  
+      def f1(): Int = {
+        println("f1调用")
+        12
+      }
+      f0(f1)
+      println("==============")
+  
+      // 2.传名参数，传递的不再是具体的值，而是代码块
+      def f2(a: => Int): Unit = {
+        println("a: " + a)
+        println("a: " + a)
+      }
+  
+      f2(23)
+      f2(f1)
+      f2({
+        println("这是一个代码块")
+        22
+      })
+    }
+  }
+  ```
+
+- 实现自定义while循环
+
+  ```scala
+  object Test12_Practice_MyWhile {
+    def main(args: Array[String]): Unit = {
+      var n = 10
+  
+      // 1.常规的while循环
+      while (n >= 1) {
+        print(s"${n}\t")
+        n -= 1
+      }
+      println("\n========================================")
+  
+      // 2.用闭包实现一个函数，将代码块作为参数传入
+      def myWhile(condition: => Boolean): (=> Unit) => Unit = {
+        // 内层函数需要递归调用，参数就是循环体
+        def doLoop(op: => Unit): Unit = {
+          if (condition) {
+            op
+            myWhile(condition)(op)
+          }
+        }
+  
+        doLoop
+      }
+  
+      n = 10
+      myWhile(n >= 1) {
+        print(s"${n}\t")
+        n -= 1
+      }
+      println("\n========================================")
+  
+      // 3.用匿名函数实现
+      def myWhile2(condition: => Boolean): (=> Unit) => Unit = {
+        op =>
+          if (condition) {
+            op
+            myWhile2(condition)(op)
+          }
+      }
+  
+      n = 10
+      myWhile2(n >= 1) {
+        print(s"${n}\t")
+        n -= 1
+      }
+      println("\n========================================")
+  
+  
+      @tailrec
+      def myWhile3(condition: => Boolean)(op: => Unit): Unit = {
+        if (condition) {
+          op
+          myWhile3(condition)(op)
+        }
+      }
+  
+      n = 10
+      myWhile3(n >= 1) {
+        print(s"${n}\t")
+        n -= 1
+      }
+      println("\n========================================")
+    }
+  }
+  ```
+
+###### 9. 惰性加载
+
+- 惰性加载是指当函数返回值被声明为lazy时，函数的执行将会被推迟，直到我们首次对此曲直，该函数才会执行，这种函数称之为惰性函数。
+
+- 有点像传名参数，但惰性加载只是推迟求值直到第一次使用时，并不是作为参数传递，只是作为一个变量出现。传名参数重复调用会重复执行代码块内容，而懒加载只是在首次求值时被使用
+
+  ```scala
+  object Test13_Lazy {
+    def main(args: Array[String]): Unit = {
+      lazy val result: Int = sum(12, 18)
+  
+      println("1.函数被调用")
+      println("2.result = " + result)
+      println("3.result = " + result)
+  
+      def sum(a: Int, b: Int): Int = {
+        println("4.sum被调用")
+        a + b
+      }
+    }
+  }
+  ```
+
+##### 7. 面向对象
+
+##### 8. 集合
+
+##### 9. 模式匹配
+
+##### 10. 异常处理
+
+##### 11. 隐式转换
+
+##### 12. 泛型
