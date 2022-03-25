@@ -116,34 +116,34 @@ Java-Student：
 
 ```java
 public class Student {
-    /**
-     * 姓名
-     */
-    private String name;
+  /**
+   * 姓名
+   */
+  private String name;
 
-    /**
-     * 年龄
-     */
-    private Integer age;
+  /**
+   * 年龄
+   */
+  private Integer age;
 
-    /**
-     * 类的静态属性
-     */
-    private static String school = "清华";
-    
-    public Student(String name, Integer age) {
-        this.name = name;
-        this.age = age;
-    }
-    
-    public void printInfo() {
-        System.out.println(this.name + "  " + this.age + "  " + Student.school);
-    }
+  /**
+   * 类的静态属性
+   */
+  private static String school = "清华";
 
-    public static void main(String[] args) {
-        Student student = new Student("alice", 20);
-        student.printInfo();
-    }
+  public Student(String name, Integer age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  public void printInfo() {
+    System.out.println(this.name + "  " + this.age + "  " + Student.school);
+  }
+
+  public static void main(String[] args) {
+    Student student = new Student("alice", 20);
+    student.printInfo();
+  }
 }
 ```
 
@@ -493,7 +493,7 @@ do {
   )
   ```
 
-#### 6. 函数式编程
+##### 6. 函数式编程
 
 - 面向对象编程：分解对象、行为、属性，然后通过对象的关系以及行为的调用来解决问题。耦合低，复用性高，可维护性强
 - 面向过程编程：按照步骤来解决问题。执行效率更高
@@ -1352,6 +1352,112 @@ Scala语言中，采用特质trait来代替接口的概念，也就是说，多�
   ```
 
 ##### 9. 集合
+
+###### 1. 集合简介
+
+- Scala的集合有三大类：序列Seq、集Set、映射Map，所有的集合都扩展自Iterable特质
+
+- 对于几乎所有的集合类，Scala都同时提供了可变和不可变的版本，可变版本位于`scala.collection.mutable`包，不可变版本位于`scala.collection.immutable`
+
+- Scala不可变集合，就是指该集合对象不可修改，每次修改就会返回一个新对象，而且不会对原对象进行修改
+
+- 可变集合，就是这个集合可以直接对原对象进行修改，而不会返回新的对象
+
+- 建议在操作集合时不可变用符号`+ -`等，可变调用英文方法
+
+- 不可变集合
+
+  ![](doc/images/immutable继承关系.png)
+
+  - Set、Map是Java中也有的集合
+  - Seq是Java中没有的，List归属于Seq，这里的List和Java中的不是同一个概念
+  - Array和String也属于IndexSeq，是因为在`Predef`中发生了隐式转换，分别转换成了`WrappedArray`和`WrappedString`
+  - Scala的体系下有一个SortedMap，说明Scala的Map支持排序
+  - IndexedSeq和LinearSeq的区别：
+    - IndexedSeq是通过索引来查找和定位，因此速度快
+    - LinearSeq是线性的，即有头有尾，这种结果一般通过遍历来查找，如果是首尾插入数据的，可以使用线性结构
+  - 不可变指的是对象的大小不可变，但是可以修改元素的值，如果使用了val定义，则指向对象的地址也不可变
+  - 不可变集合上插入或删除新的元素会返回新的集合
+
+- 可变集合
+
+  ![](doc/images/mutable继承关系.png)
+
+  - 可变集合中的Seq新增了Buffer类型
+
+###### 2. 数组
+
+- 不可变数组
+
+  - 定义方式：`val newArray = new Array[Int](10)`
+  - `new`是关键字
+  - `[Int]`是指定可以存放的数据类型，如果希望存放任意数据类型，则需要用`Any`
+  - `(10)`表示数组的大小，确定后就不可以改变
+  - 访问数组的元素用`()`，底层调用了`Array`类中的`apply/update`方法，源码中的方法没有具体实现只是抛出错误作为存根方法（stud method），具体逻辑由编译器填充
+
+  ```scala
+  object Test01_ImmutableArray {
+    def main(args: Array[String]): Unit = {
+      // 1.创建数组
+      val newArray: Array[Int] = new Array[Int](5)
+      // 另一种创建方式
+      val arr2 = Array(12, 37, 43, 23, 39)
+      println(newArray.length)
+      println(arr2.length)
+  
+      // 2.访问元素
+      println(newArray(0))
+      newArray(0) = 1
+      println(newArray(0))
+      println("=================================")
+  
+      // 3.遍历元素
+      // 普通for循环
+      for (i <- 0 until newArray.length) {
+        print(newArray(i) + " ")
+      }
+      println()
+      for (i <- newArray.indices) {
+        print(newArray(i) + " ")
+      }
+      println()
+      // 增强for循环
+      for (elem <- newArray) {
+        print(elem + " ")
+      }
+      println()
+      // 使用iterator遍历
+      val iter = newArray.iterator
+      while (iter.hasNext) {
+        print(iter.next() + " ")
+      }
+      println()
+      // 使用foreach方法
+      newArray.foreach(print)
+      println()
+      // mkString
+      println(newArray.mkString(" "))
+      println("=================================")
+  
+      // 4.添加元素
+      val arr3 = newArray.:+(99)
+      println(arr3.mkString(" "))
+      val arr4 = arr3.+:(10)
+      println(arr4.mkString(" "))
+      // 特殊语法
+      val arr5 = arr4 :+ 17
+      println(arr5.mkString(" "))
+      val arr6 = 88 +: arr5 :+ 77
+      println(arr6.mkString(" "))
+      println("=================================")
+    }
+  }
+  ```
+
+  - 添加元素是使用`:+`和`+:`，需要注意的是`:`永远指向对象
+  - 调用的`:+`和`+:`其实是`ArrayOps`中的函数，是通过`Predef`进行了隐式转换混入了集合相关特征的包装类型
+
+- 可变数组
 
 ##### 10. 模式匹配
 
