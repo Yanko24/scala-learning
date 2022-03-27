@@ -1459,6 +1459,490 @@ Scala语言中，采用特质trait来代替接口的概念，也就是说，多�
 
 - 可变数组
 
+  - 类型是`ArrayBuffer`
+  - 可变集合调用对应的方法，不可变使用运算符
+  - 可变方法和不可变方法可以调用方法互相转换
+  - 可变方法修改后不建议赋值给新的数组对象，其引用地址都一样
+
+  ```scala
+  object Test02_Mutable {
+    def main(args: Array[String]): Unit = {
+      // 1.创建可变数组
+      val arr1: ArrayBuffer[Int] = new ArrayBuffer[Int]()
+      // 第二种创建方式
+      val arr2: ArrayBuffer[Int] = ArrayBuffer(12, 23, 45, 67, 90)
+      println(arr1)
+      println(arr2)
+      println("======================================")
+  
+      // 2.访问数组中的元素
+      // 数组下标越界
+      // println(arr1(0))
+      arr2(0) = 12
+      println(arr2(0))
+      println("======================================")
+  
+      // 3.添加元素，可变数组使用+=添加元素后，无论是否赋值给新的数组对象，其实只是引用发生了更改
+      arr1.append(12, 13)
+      println(arr1)
+      arr1 += 14
+      println(arr1)
+      16 +=: arr1
+      println(arr1)
+      arr1.prepend(89)
+      println(arr1)
+      arr1.insert(1, 44)
+      println(arr1)
+      println("======================================")
+  
+      // 4.删除元素
+      println(arr1)
+      arr1.remove(0)
+      println(arr1)
+      arr1.remove(0, 2)
+      println(arr1)
+      // 按照元素值删除
+      arr1 -= 12
+      println(arr1)
+      println("======================================")
+  
+      // 5.可变和不可变集合的转换
+      val arr: Array[Int] = arr1.toArray
+      println(arr)
+      println(arr.mkString("Array(", ", ", ")"))
+      val buffer: mutable.Buffer[Int] = arr.toBuffer
+      println(buffer)
+      println("======================================")
+    }
+  }
+  ```
+
+- 多维数组
+
+  - 二维数组需要用`Array.ofDim`定义，最多支持五维数组
+
+  - 二维数组其实就是数组的数组
+
+  ```scala
+  object Test03_MulArray {
+    def main(args: Array[String]): Unit = {
+      // 创建二维数组
+      val array: Array[Array[Int]] = Array.ofDim[Int](2, 3)
+  
+      // 2.访问二维数组的元素
+      array(0)(1) = 1
+      println(array(0)(1))
+      println(array.mkString(","))
+      for {i <- array.indices
+           j <- 0 until array(i).length} {
+        print(array(i)(j) + ",")
+      }
+      println()
+      for (i <- array.indices; j <- array(i).indices) {
+        print(array(i)(j) + ",")
+        if (j == array(i).length - 1) println()
+      }
+      array.foreach(line => line.foreach(println))
+      array.foreach(_.foreach(println))
+    }
+  }
+  ```
+
+###### 3. 列表（List）
+
+- 不可变列表
+
+  - `List`不能直接`new`，需要调用伴生对象的方法`apply`进行创建
+  - `List`默认就是不可变集合，且`List`是一个`sealed`修饰的密封类，也就是说所有的`List`的子类必须定义在`List.scala`文件中
+  - 采用`+:`和`:+`的方式添加元素
+  - `Nil`可以创建一个空列表，`::`添加元素到空列表的前面
+  - 经常使用`Nil.::(elem)`创建列表，另一种写法是`15 :: 23 :: Nil`，可以得到一个`List(15, 23)`的列表
+  - 可以使用`:::`和`++`对两个`List`进行合并
+
+  ```scala
+  object Test04_List {
+    def main(args: Array[String]): Unit = {
+      // 1.创建List
+      val list1 = List(12, 23 ,56)
+      println(list1)
+      println("================================")
+  
+      // 2.访问和遍历元素
+      println(list1(1))
+      list1.foreach(println)
+      println("================================")
+  
+      // 3.添加元素
+      val list2: List[Int] = 10 +: list1
+      val list3: List[Int] = list1 :+ 23
+      println(list1)
+      println(list2)
+      println(list3)
+      println("================================")
+  
+      // ::方法
+      val list4: List[Int] = list1.::(22)
+      println(list1)
+      println(list4)
+  
+      val list5: List[Int] = Nil.::(13)
+      println(list5)
+      val list6: List[Int] = 32 :: Nil
+      val list7: List[Int] = 17 :: 28 :: 59 :: 16 :: Nil
+      println(list6)
+      println(list7)
+      println("================================")
+  
+      // 合并列表
+      val list8: List[Int] = list6 ::: list7
+      val list9: List[Int] = list6 ++ list7
+      println(list8)
+      println(list9)
+      println("================================")
+    }
+  }
+  ```
+
+- 可变列表
+
+  - 可变列表`ListBuffer`，和`ArrayBuffer`很像
+  - 直接`new`创建列表，推荐使用伴生对象的`apply`传入元素构建列表
+  - 可以通过`+=`和`+=:`以及`-=`对列表中的元素进行增删
+  - 合并列表：`++`合并后产生新的列表，`++=`合并到调用的列表上
+
+  ```scala
+  object Test05_ListBuffer {
+    def main(args: Array[String]): Unit = {
+      // 1.创建可变列表
+      val list1: ListBuffer[Int] = new ListBuffer[Int]()
+      val list2: ListBuffer[Int] = ListBuffer(12, 23, 45)
+      println(list1)
+      println(list2)
+      println("==============================")
+  
+      // 2.添加元素
+      list1.append(10)
+      list2.append(13)
+      list2.prepend(15)
+      list2.insert(1, 39, 55)
+      list1 += 12
+      println(list1)
+      println(list2)
+      println("==============================")
+  
+      // 3.合并list
+      list1 ++= list2
+      println(list1)
+      println(list2)
+      println("==============================")
+  
+      // 4.修改元素
+      list2(3) = 30
+      println(list2)
+      println("==============================")
+  
+      // 5.删除元素
+      list2.remove(0, 1)
+      println(list2)
+    }
+  }
+  ```
+
+###### 4. 集合（Set）
+
+- 不可变集合
+
+  - 数据无序，不可重复
+  - 可变和不可变都叫做`Set`，默认调用`Set`为不可变集合
+  - 创建时重复数据会被去除，可以用来进行去重
+  - 添加删除元素：`set + elem`，`set - elem`
+  - 合并两个集合：`set1 ++ set2`
+
+  ```scala
+  object Test06_ImmutableSet {
+    def main(args: Array[String]): Unit = {
+      // 1.创建集合
+      val set1: Set[Int] = Set(12, 34, 45, 45, 67)
+      println(set1)
+      println("=================================")
+  
+      // 2.添加元素
+      val set2: Set[Int] = set1.+(20)
+      val set3: Set[Int] = set1 + 20
+      println(set1)
+      println(set2)
+      println(set3)
+      println("=================================")
+  
+      // 3.合并两个集合
+      val set4: Set[Int] = set2 ++ set3
+      println(set2)
+      println(set3)
+      println(set4)
+      println("=================================")
+  
+      // 4.删除元素
+      val set5: Set[Int] = set3 - 20
+      println(set3)
+      println(set5)
+      println("=================================")
+    }
+  }
+  ```
+
+- 可变集合
+
+  - 引入`Set`需要注意引入`mutable.Set`
+  - 方法：`add`、`remove`
+  - 添加删除元素：`set += elem`，`set -= elem`
+  - 合并两个集合：`set1 ++= set2`
+
+  ```scala
+  object Test07_MutableSet {
+    def main(args: Array[String]): Unit = {
+      // 1.创建可变集合
+      val set1: mutable.Set[Int] = mutable.Set(12, 34, 56, 67, 12, 45, 34)
+      println(set1)
+      println("=====================================")
+  
+      // 2.添加元素
+      set1.add(13)
+      println(set1)
+      set1 += 14
+      println(set1)
+      println("=====================================")
+  
+      // 3.删除元素
+      set1.remove(13)
+      println(set1)
+      // 删除不存在元素，不会报错
+      set1.remove(100)
+      println(set1)
+      println("=====================================")
+  
+      // 4.合并集合
+      val set3: mutable.Set[Int] = mutable.Set(13, 12, 13, 27, 98, 29)
+      println(set1)
+      println(set3)
+      set1 ++= set3
+      println(set1)
+      println("=====================================")
+    }
+  }
+  ```
+
+###### 5. 映射（Map）
+
+- 不可变映射
+
+  - `Map`默认就是不可变映射
+  - `Map`有两个泛型类型
+
+  ```scala
+  object Test08_ImmutableMap {
+    def main(args: Array[String]): Unit = {
+      // 1.创建不可变映射
+      val map1: Map[String, Int] = Map("a" -> 12, "b" -> 13, "c" -> 14)
+      println(map1)
+      println("=====================================")
+  
+      // 2.遍历元素
+      map1.foreach(println)
+      map1.foreach((kv: (String, Int)) => println(kv))
+      println("=====================================")
+  
+      // 3.遍历映射中的key
+      for (key <- map1.keys) {
+        println(s"${key} ---> ${map1.get(key)}")
+      }
+      println("=====================================")
+  
+      // 4.访问某个key的value
+      println(map1.get("a").get)
+      println(map1("a"))
+      // 不存在会抛出异常
+      // println(map1("e"))
+      println(map1.getOrElse("e", 0))
+      println("=====================================")
+  
+      // 5.添加元素
+      val map2: Map[String, Int] = map1 + ("d" -> 15)
+      println(map1)
+      println(map2)
+      println("=====================================")
+  
+      // 6.删除元素
+      val map3: Map[String, Int] = map1 - ("c")
+      println(map1)
+      println(map3)
+      println("=====================================")
+    }
+  }
+  ```
+
+- 可变映射
+
+  - 引入`Map`需要注意引入`mutable.Map`
+  - `immutable.Map`有的操作`mutable.Map`都有
+
+  ```scala
+  object Test09_MutableMap {
+    def main(args: Array[String]): Unit = {
+      // 1.创建可变集合
+      val map1: mutable.Map[String, Int] = mutable.Map("a" -> 12, "b" -> 13)
+      println(map1)
+      println("=========================================")
+  
+      // 2.遍历
+      map1.foreach(println)
+      println("=========================================")
+  
+      // 3.添加元素
+      map1 += ("c" -> 14)
+      map1 += (("e", 16))
+      map1.put("d", 15)
+      println(map1)
+      println("=========================================")
+  
+      // 4.修改元素
+      map1.update("e", 17)
+      println(map1)
+      println("=========================================")
+  
+      // 5.删除元素
+      map1 -= ("d")
+      map1.remove("c")
+      println(map1)
+      println("=========================================")
+  
+      // 6.映射之间的操作
+      val map2: mutable.Map[String, Int] = mutable.Map("f" -> 17, "g" -> 19)
+      println(map1)
+      println(map2)
+      // 合并两个映射
+      map1 ++= map2
+      println(map1)
+      println("=========================================")
+    }
+  }
+  ```
+
+###### 6. 元组（Tuple）
+
+- 元组可以理解成一个容器，可以存放各种相同或不同类型的数据。简单点来说就是将多个无关的数据封装成一个整体，称为元组
+
+- Scala中的元组最大只能有22个元素
+
+- 声明元组的方式：`(elem1, elem2, elem3)`
+
+- 使用`_1`或`tuple.productElement(0)`访问元组中的元素
+
+- 遍历元组`elem <- tuple.productIterator`
+
+  ```scala
+  object Test10_Tuple {
+    def main(args: Array[String]): Unit = {
+      // 1.元组的创建
+      val tuple: (String, Int, Char, Boolean) = ("hello", 100, 'a', true)
+      println(tuple)
+      println("=======================================")
+  
+      // 2.访问数据
+      println(tuple._1)
+      println(tuple.productElement(0))
+      println("=======================================")
+  
+      // 3.遍历元组数据
+      for (elem <- tuple.productIterator) {
+        println(elem)
+      }
+      println("=======================================")
+  
+      // 4.元组的嵌套
+      val mulTuple: (Int, Double, String, (Int, String), Int) = (12, 0.3, "hello", (13, "scala"), 39)
+      println(mulTuple._4._2)
+      println("=======================================")
+    }
+  }
+  ```
+
+###### 7. 集合常用函数
+
+- 集合的基本属性和常用操作
+
+  - 线性序列长度`length`、所有集合类型都有大小`size`
+  - 遍历`elem <- collection`、迭代器`elem <- collection.iterator`
+  - 生成字符串`toString`和`mkString`，但是需要注意的是像`Array`这种隐式转换为Scala集合的，需要重写`toString`方法
+  - 判断是否包含元素`contains`
+
+  ```scala
+  object Test11_CommonOperation {
+    def main(args: Array[String]): Unit = {
+      val list: List[Int] = List(1, 3, 4, 5, 6, 7)
+      val set: Set[Int] = Set(23, 34, 23, 44, 5)
+  
+      //（1）获取集合长度
+      println(list.length)
+      println("===================")
+  
+      //（2）获取集合大小
+      println(set.size)
+      println("===================")
+  
+      //（3）循环遍历
+      for (elem <- list) {
+        println(elem)
+      }
+      println("===================")
+      set.foreach(println)
+      println("===================")
+  
+      //（4）迭代器
+      for (elem <- list.iterator) {
+        println(elem)
+      }
+      println("===================")
+  
+      //（5）生成字符串
+      println(list)
+      println("===================")
+      println(set.mkString(","))
+      println("===================")
+  
+      //（6）是否包含
+      println(list.contains(23))
+      println("===================")
+    }
+  }
+  ```
+
+- 衍生集合
+
+  - 获取集合的头元素`head`（元素）和剩下的尾`tail`（集合）
+  - 获取最后一个元素`last`（元素）和除去最后一个元素的初始数据`init`（集合）
+  - 集合反转`reverse`
+  - 取前n个元素`task(n)`、取后n个元素`takeRight(n)`
+  - 去掉前n个元素`drop(n)`、去除后n个元素`dropRight(n)`
+  - 交集`intersect`、并集`union`、差集`diff`
+  - 对于线性序列的话使用`concat`连接
+  - 拉链`zip`，得到两个集合对应位置元素组合起来构成二元组的集合，大小不匹配会丢掉其中一个集合不匹配的多余部分
+
+  ```scala
+  
+  ```
+
+- 集合的简单计算操作
+
+- 集合高级计算函数
+
+###### 8. 队列（Queue）
+
+
+
+###### 9. 并行集合
+
+
+
 ##### 10. 模式匹配
 
 ##### 11. 异常处理
