@@ -1355,7 +1355,7 @@ Scala语言中，采用特质trait来代替接口的概念，也就是说，多�
 
 ###### 1. 集合简介
 
-- Scala的集合有三大类：序列Seq、集Set、映射Map，所有的集合都扩展自Iterable特质
+- Scala的集合有三大类：序列`Seq`、集`Set`、映射`Map`，所有的集合都扩展自`Iterable`特质
 
 - 对于几乎所有的集合类，Scala都同时提供了可变和不可变的版本，可变版本位于`scala.collection.mutable`包，不可变版本位于`scala.collection.immutable`
 
@@ -1369,13 +1369,13 @@ Scala语言中，采用特质trait来代替接口的概念，也就是说，多�
 
   ![](doc/images/immutable继承关系.png)
 
-  - Set、Map是Java中也有的集合
-  - Seq是Java中没有的，List归属于Seq，这里的List和Java中的不是同一个概念
-  - Array和String也属于IndexSeq，是因为在`Predef`中发生了隐式转换，分别转换成了`WrappedArray`和`WrappedString`
-  - Scala的体系下有一个SortedMap，说明Scala的Map支持排序
-  - IndexedSeq和LinearSeq的区别：
-    - IndexedSeq是通过索引来查找和定位，因此速度快
-    - LinearSeq是线性的，即有头有尾，这种结果一般通过遍历来查找，如果是首尾插入数据的，可以使用线性结构
+  - `Set`、`Map`是Java中也有的集合
+  - `Seq`是Java中没有的，`List`归属于`Seq`，这里的`List`和Java中的不是同一个概念
+  - `Array`和`String`也属于`IndexSeq`，是因为在`Predef`中发生了隐式转换，分别转换成了`WrappedArray`和`WrappedString`
+  - Scala的体系下有一个`SortedMap`，说明Scala的`Map`支持排序
+  - `IndexedSeq`和`LinearSeq`的区别：
+    - `IndexedSeq`是通过索引来查找和定位，因此速度快
+    - `LinearSeq`是线性的，即有头有尾，这种结果一般通过遍历来查找，如果是首尾插入数据的，可以使用线性结构
   - 不可变指的是对象的大小不可变，但是可以修改元素的值，如果使用了val定义，则指向对象的地址也不可变
   - 不可变集合上插入或删除新的元素会返回新的集合
 
@@ -1385,7 +1385,7 @@ Scala语言中，采用特质trait来代替接口的概念，也就是说，多�
 
   - 可变集合中的Seq新增了Buffer类型
 
-###### 2. 数组
+###### 2. 数组（Array）
 
 - 不可变数组
 
@@ -1926,22 +1926,204 @@ Scala语言中，采用特质trait来代替接口的概念，也就是说，多�
   - 交集`intersect`、并集`union`、差集`diff`
   - 对于线性序列的话使用`concat`连接
   - 拉链`zip`，得到两个集合对应位置元素组合起来构成二元组的集合，大小不匹配会丢掉其中一个集合不匹配的多余部分
-
-  ```scala
-  
-  ```
+  - 滑窗`sliding(size, step)`，`size`表示窗口中元素的数量，`size`表示滑动步长，最终得到包含`size`个元素的`Iterator`
 
 - 集合的简单计算操作
 
+  - 求和`sum`、求乘积`product`、最大值`max`、最小值`min`、排序`sorted`
+  - `maxBy`和`minBy`可以指定列表中的某个字段去进行判断数据大小
+  - `sorted`默认排序是升序排序，如果需要降序排序那就需要给`sorted`传入隐式参数`Ordering[Int].reverse`
+  - `sortBy`按照给定的某个字段对列表进行排序
+  - `sortWith`类似于Java中的`compare`，按照某种逻辑进行判断大小
+
+  ```scala
+  object Test13_SimpleFunction {
+    def main(args: Array[String]): Unit = {
+      val list1: List[Int] = List(1, 3, 5, 7, 9, 12, 43, 23)
+      val list2: List[(String, Int)] = List(("a", 5), ("b", 6), ("c", 7), ("d", 2))
+  
+      //（1）求和
+      println(list1.sum)
+      println("===============================")
+  
+      //（2）求乘积
+      println(list1.product)
+      println("===============================")
+  
+      //（3）最大值、最小值
+      println(list1.max)
+      println(list1.min)
+      println("===============================")
+  
+      //（4）排序
+      println(list1.sorted)
+      println("===============================")
+      println(list1.sorted.reverse)
+      // 传入一个隐式参数
+      println(list1.sorted(Ordering[Int].reverse))
+      println("===============================")
+      println(list2.sortBy(_._2))
+      println(list2.sortBy(_._2)(Ordering[Int].reverse))
+      println("===============================")
+      println(list1.sortWith((a: Int, b: Int) => {a < b}))
+      println(list1.sortWith(_ < _))
+      println(list2.sortWith(_._2 < _._2))
+      println("===============================")
+  
+      //（5）maxBy比较大小
+      println(list2.maxBy((tuple: (String, Int)) => tuple._2))
+      println(list2.maxBy(_._2))
+      println(list2.minBy(_._2))
+      println("===============================")
+    }
+  }
+  ```
+
 - 集合高级计算函数
+
+  - 过滤`filter`：遍历一个集合并从中获取满足指定条件的元素组成一个新的集合
+  - 转化/映射`map`：将集合中的每一个元素映射到某一个函数上
+  - 扁平化`flatten`：将集合中集合元素拆开，去掉内层集合，放到外层集合中
+  - 扁平化+映射`flatMap`：相当于先进行了`map`操作，然后进行了`flatten`操作，集合中的每个元素的子元素映射到某个函数并返回新集合
+  - 分组`group`：按照指定的规则对集合的元素进行分组
+
+  - 简化（规约）：对所有数据做一个处理，规约得到一个结果。函数有两个参数，第一个参数是上一轮计算的结果，第二个元素是当前元素，计算得到本轮结果。`reduce`底层调用`reduceLeft`从左向右，也可以`reduceRight`从右向左计算，需要注意的是这里的从右向左不是一般意义上的从右向左（底层是递归调用）
+  - 折叠`fold`：`fold`可以理解成是`reduce`的一种扩展。`fold`给自己一个初始值，从第一个元素开始计算；`reduce`用第一个元素做初始值，从第二个开始计算。`fold`底层调用了`foldLeft`进行计算，从右向左计算则用`foldRight`，底层调用了`reverse`之后调用`foldLeft`，需要注意的是这里的从右向左都需要格外注意。
+
+  ```scala
+  object Test15_HighLevelFunction_Reduce {
+    def main(args: Array[String]): Unit = {
+      val list: List[Int] = List(1, 2, 3, 4)
+  
+      //（1）规约
+      println(list.reduce(_ + _))
+      println(list.reduceLeft(_ + _))
+      println(list.reduceRight(_ + _))
+      println("======================================")
+  
+      val list2: List[Int] = List(3, 4, 5, 8, 10)
+      println(list2.reduce(_ - _))
+      println(list2.reduceLeft(_ - _))
+      // (3 - (4 - (5 - (8 - 10))))
+      println(list2.reduceRight(_ - _))
+      println("======================================")
+  
+      //（2）fold
+      println(list.fold(10)(_ + _))
+      println(list.foldRight(10)(_ + _))
+      println("======================================")
+      println(list2.fold(10)(_ - _))
+      println(list2.foldLeft(10)(_ - _))
+      // (3 - (4 - (5 - (8 - (10 - 11)))))
+      println(list2.foldRight(11)(_ - _))
+      println("======================================")
+    }
+  }
+  ```
+
+- 集合应用案例
+
+  - 映射`map`中默认的合并操作是用后面对应`key`的`value`取覆盖前面的，如果要定制累加可以使用`foldLeft`
+
+    ```scala
+    object Test16_MergeMap {
+      def main(args: Array[String]): Unit = {
+        val map1: Map[String, Int] = Map("a" -> 1, "b" -> 3, "c" -> 6)
+        val map2: mutable.Map[String, Int] = mutable.Map("a" -> 6, "b" -> 2, "c" -> 9, "d" -> 3)
+    
+        println(map1 ++ map2)
+        println("==========================")
+    
+        val map3: mutable.Map[String, Int] = map1.foldLeft(map2)((megredMap, kv) => {
+          val key: String = kv._1
+          val value: Int = kv._2
+          megredMap(key) = megredMap.getOrElse(key, 0) + value
+          megredMap
+        })
+        println(map3)
+        println("==========================")
+      }
+    }
+    ```
+
+  - 经典案例：WordCount（分词、计数、取排名前三）
+
+    ```scala
+    object Test17_CommonWordCount {
+      def main(args: Array[String]): Unit = {
+        val list: List[String] = List("hello world hbase kafka", "hello scala spark kafka", "hello world", "hello flink")
+    
+        // 对字符串进行切分压平
+        val words: List[String] = list.flatMap(_.split(" "))
+    
+        // 分组统计
+        val groupList: Map[String, List[String]] = words.groupBy(word => word)
+    
+        // 统计个数
+        val countMap: Map[String, Int] = groupList.map(kv => (kv._1, kv._2.length))
+    
+        // 根据count进行排序
+        val sortedList: List[(String, Int)] = countMap.toList
+    
+        // 取前三
+        val result: List[(String, Int)] = sortedList.sortWith(_._2 > _._2).take(3)
+    
+        println(result)
+      }
+    }
+    ```
+
+  - 经典案例：WordCount扩展
+
+    ```scala
+    object Test18_ComplexWordCount {
+      def main(args: Array[String]): Unit = {
+        val list: List[(String, Int)] = List(
+          ("hello world hbase kafka", 2),
+          ("hello scala spark kafka", 3),
+          ("hello world", 2),
+          ("hello flink", 4)
+        )
+    
+        // 思路一：直接压平，后续操作和普通版本一致
+        val newStringList: List[String] = list.map(kv => {
+          (kv._1 + " ") * kv._2
+        })
+        val resultList: List[(String, Int)] = newStringList
+          .flatMap(_.split(" "))
+          .groupBy(word => word)
+          .map(kv => (kv._1, kv._2.length))
+          .toList
+          .sortBy(_._2)(Ordering[Int].reverse)
+          .take(3)
+        println(resultList)
+    
+        // 思路二：直接基于预统计的结果进行转换
+        val preCountList: List[(String, Int)] = list.flatMap(data => {
+          val strings: Array[String] = data._1.split(" ")
+          strings.map(word => (word, data._2))
+        })
+        val result: List[(String, Int)] = preCountList
+          .groupBy(_._1)
+          .mapValues(data => data.map(_._2).sum)
+          .toList
+          .sortWith(_._2 > _._2)
+          .take(3)
+        println(result)
+      }
+    }
+    ```
 
 ###### 8. 队列（Queue）
 
-
+- 队列的特点就是先进先出，进队和出队的方法分别是`enqueue`和`dequeue`
+- 可变队列`mutable.Queue`
+- 不可变队列`immutable.Queue`
 
 ###### 9. 并行集合
 
-
+- 使用并行集合执行时会调用多个线程执行
+- 使用集合类前加一个`.par`方法调用
 
 ##### 10. 模式匹配
 
