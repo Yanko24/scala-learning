@@ -1,3 +1,79 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Scala入门](#scala%E5%85%A5%E9%97%A8)
+  - [1. 环境配置](#1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)
+  - [2. IDEA环境配置](#2-idea%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)
+  - [3. 变量和数据类型](#3-%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
+    - [1. 注释](#1-%E6%B3%A8%E9%87%8A)
+    - [2. 变量和常量](#2-%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F)
+    - [3. 标识符的命名规范](#3-%E6%A0%87%E8%AF%86%E7%AC%A6%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83)
+    - [4. 字符串输出](#4-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BE%93%E5%87%BA)
+    - [5. 键盘输入](#5-%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5)
+    - [6. 读写文件](#6-%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6)
+    - [7. 数据类型](#7-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
+    - [8. 数据类型转换](#8-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+  - [4. 运算符](#4-%E8%BF%90%E7%AE%97%E7%AC%A6)
+  - [5. 流程控制](#5-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6)
+    - [1. IF-ELSE](#1-if-else)
+    - [2. FOR](#2-for)
+    - [3. WHILE和DO-WHILE](#3-while%E5%92%8Cdo-while)
+    - [4. 循环中断](#4-%E5%BE%AA%E7%8E%AF%E4%B8%AD%E6%96%AD)
+  - [6. 函数式编程](#6-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B)
+    - [1. 函数定义](#1-%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89)
+    - [2. 函数参数](#2-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0)
+    - [3. 匿名函数](#3-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0)
+    - [4. 高阶函数](#4-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)
+    - [5. 高阶函数案例](#5-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E6%A1%88%E4%BE%8B)
+    - [6. 函数的柯里化和闭包](#6-%E5%87%BD%E6%95%B0%E7%9A%84%E6%9F%AF%E9%87%8C%E5%8C%96%E5%92%8C%E9%97%AD%E5%8C%85)
+    - [7. 递归函数](#7-%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0)
+    - [8. 控制抽象](#8-%E6%8E%A7%E5%88%B6%E6%8A%BD%E8%B1%A1)
+    - [9. 惰性加载](#9-%E6%83%B0%E6%80%A7%E5%8A%A0%E8%BD%BD)
+  - [7. 包管理](#7-%E5%8C%85%E7%AE%A1%E7%90%86)
+  - [8. 面向对象](#8-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)
+    - [1. 类和对象](#1-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1)
+    - [2. 封装](#2-%E5%B0%81%E8%A3%85)
+    - [3. 继承](#3-%E7%BB%A7%E6%89%BF)
+    - [4. 多态](#4-%E5%A4%9A%E6%80%81)
+    - [5. 抽象类](#5-%E6%8A%BD%E8%B1%A1%E7%B1%BB)
+    - [6. 匿名子类](#6-%E5%8C%BF%E5%90%8D%E5%AD%90%E7%B1%BB)
+    - [7. 单例对象（伴生对象）](#7-%E5%8D%95%E4%BE%8B%E5%AF%B9%E8%B1%A1%E4%BC%B4%E7%94%9F%E5%AF%B9%E8%B1%A1)
+    - [8. 特质](#8-%E7%89%B9%E8%B4%A8)
+    - [9. 扩展](#9-%E6%89%A9%E5%B1%95)
+  - [9. 集合](#9-%E9%9B%86%E5%90%88)
+    - [1. 集合简介](#1-%E9%9B%86%E5%90%88%E7%AE%80%E4%BB%8B)
+    - [2. 数组（Array）](#2-%E6%95%B0%E7%BB%84array)
+    - [3. 列表（List）](#3-%E5%88%97%E8%A1%A8list)
+    - [4. 集合（Set）](#4-%E9%9B%86%E5%90%88set)
+    - [5. 映射（Map）](#5-%E6%98%A0%E5%B0%84map)
+    - [6. 元组（Tuple）](#6-%E5%85%83%E7%BB%84tuple)
+    - [7. 集合常用函数](#7-%E9%9B%86%E5%90%88%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0)
+    - [8. 队列（Queue）](#8-%E9%98%9F%E5%88%97queue)
+    - [9. 并行集合](#9-%E5%B9%B6%E8%A1%8C%E9%9B%86%E5%90%88)
+  - [10. 模式匹配](#10-%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D)
+    - [1. 基本语法](#1-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95)
+    - [2. 模式守卫（模式哨卫）](#2-%E6%A8%A1%E5%BC%8F%E5%AE%88%E5%8D%AB%E6%A8%A1%E5%BC%8F%E5%93%A8%E5%8D%AB)
+    - [3. 模式匹配类型](#3-%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%B1%BB%E5%9E%8B)
+    - [4. 变量声明中的模式匹配](#4-%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D)
+    - [5. `for`推导式中的模式匹配](#5-for%E6%8E%A8%E5%AF%BC%E5%BC%8F%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D)
+    - [6. 匹配对象](#6-%E5%8C%B9%E9%85%8D%E5%AF%B9%E8%B1%A1)
+    - [7. 匹配样例类](#7-%E5%8C%B9%E9%85%8D%E6%A0%B7%E4%BE%8B%E7%B1%BB)
+    - [8. 偏函数](#8-%E5%81%8F%E5%87%BD%E6%95%B0)
+  - [11. 异常处理](#11-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
+  - [12. 隐式转换](#12-%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2)
+    - [1. 隐式函数](#1-%E9%9A%90%E5%BC%8F%E5%87%BD%E6%95%B0)
+    - [2. 隐式参数](#2-%E9%9A%90%E5%BC%8F%E5%8F%82%E6%95%B0)
+    - [3. 隐式类](#3-%E9%9A%90%E5%BC%8F%E7%B1%BB)
+    - [4. 隐式解析机制](#4-%E9%9A%90%E5%BC%8F%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6)
+  - [13. 泛型](#13-%E6%B3%9B%E5%9E%8B)
+    - [1. 泛型](#1-%E6%B3%9B%E5%9E%8B)
+    - [2. 协变和逆变](#2-%E5%8D%8F%E5%8F%98%E5%92%8C%E9%80%86%E5%8F%98)
+    - [3. 泛型上下限](#3-%E6%B3%9B%E5%9E%8B%E4%B8%8A%E4%B8%8B%E9%99%90)
+    - [4. 上下文限定](#4-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%99%90%E5%AE%9A)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #### Scala入门
 
 Scala语言是一门多范式（多范式是指：面向对象、面向过程、范型和函数式四种程序设计方法）的编程语言，平滑的集成了面向对象和函数式语言的特性。Scala语言被Martin Odersky在2001年开始设计。
@@ -116,34 +192,34 @@ Java-Student：
 
 ```java
 public class Student {
-  /**
-   * 姓名
-   */
-  private String name;
+    /**
+     * 姓名
+     */
+    private String name;
 
-  /**
-   * 年龄
-   */
-  private Integer age;
+    /**
+     * 年龄
+     */
+    private Integer age;
 
-  /**
-   * 类的静态属性
-   */
-  private static String school = "清华";
+    /**
+     * 类的静态属性
+     */
+    private static String school = "清华";
+    
+    public Student(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    public void printInfo() {
+        System.out.println(this.name + "  " + this.age + "  " + Student.school);
+    }
 
-  public Student(String name, Integer age) {
-    this.name = name;
-    this.age = age;
-  }
-
-  public void printInfo() {
-    System.out.println(this.name + "  " + this.age + "  " + Student.school);
-  }
-
-  public static void main(String[] args) {
-    Student student = new Student("alice", 20);
-    student.printInfo();
-  }
+    public static void main(String[] args) {
+        Student student = new Student("alice", 20);
+        student.printInfo();
+    }
 }
 ```
 
@@ -2127,8 +2203,474 @@ Scala语言中，采用特质trait来代替接口的概念，也就是说，多�
 
 ##### 10. 模式匹配
 
+###### 1. 基本语法
+
+模式匹配语法中，采用`match`关键字声明，每个分支采用`case`关键字进行声明，当需要匹配时，会从第一个`case`分支开始，如果匹配成功，那么执行对应的逻辑代码，如果匹配不成功，继续执行下一个分支进行判断。
+
+```scala
+val x: Int = 2
+val y: String = x match {
+  case 1 => "one"
+  case 2 => "two"
+  case 3 => "three"
+  case _ => "other"
+}
+```
+
+- 如果所有`case`都不匹配，那么会执行`case _`分支，类似于Java中的`default`语句，如果没有`case _`分支，则会抛出异常`MatchError`
+- 每个`case`中，不需要使用`break`语句，自动中断`case`
+- `match case`语句可以匹配任何类型，而不只是字面量
+- `=>` 后面的代码块，知道下一个`case`之前的代码是作为一个整体执行，可以使用`{}`，也可以不使用
+
+###### 2. 模式守卫（模式哨卫）
+
+```scala
+// 示例1
+def abs(num: Int): Int = {
+  num match {
+    case i if i >= 0 => i
+    case i if i < 0 => -i
+  }
+}
+
+// 示例2
+val response: String = null
+
+val status = response match {
+  case s if s != null => println(s"Received '$s'")
+  case s => println("Error! Received a null response")
+}
+```
+
+- 如果想要在表达式内匹配某个范围的值，就需要在模式匹配中增加条件守卫（条件哨卫）
+
+###### 3. 模式匹配类型
+
+- 匹配常量：匹配常量的`case`是有限的，所以最后分支中最好有`case _`
+- 匹配类型：需要注意的是在`match`匹配中由于泛型擦除，可能不会严格的匹配泛型的类型参数。需要注意的是对于`Array`来说，不存在泛型擦除，因为`Array`是基本数据类型，对应Java中的原生数据类型
+
+```scala
+def describeType(x: Any): String = x match {
+  case i: Int => "Int " + i
+  case s: String => "String " + s
+  case list: List[String] => "List " + list
+  case array: Array[Int] => "Array " + array.mkString(",")
+  case a => "Something else: " + a
+}
+
+println(describeType(35))
+println(describeType("hello"))
+println(describeType(List("hi", "hello")))
+println(describeType(List(1, 3, 4)))
+println(describeType(Array(1, 3, 4)))
+println(describeType(Array("hi", "hello")))
+```
+
+- 匹配数组：对于数组可以定义多种匹配形式，可以定义模糊的元素类型匹配、元素个数匹配或者精确的某个数组元素值的匹配
+
+```scala
+for (arr <- List(Array(0), Array(0, 1), Array(0, 1, 0), Array(1, 1, 0), Array(2, 3, 7, 15), Array("Hello", 20,
+  30))) {
+  val result: String = arr match {
+    case Array(0) => "0"
+    case Array(1, 0) => "Array(1, 0)"
+    // 匹配两元素数组
+    case Array(x, y) => s"Array(${x}, ${y})"
+    case Array(0, _*) => "以0开头的数组"
+    case Array(x, 1, z) => "中间为1的三元素数组"
+    case _ => "Something else"
+  }
+  println(result)
+}
+```
+
+- 匹配列表：列表和数组很类似，也很灵活。和`Array`不同的是支持`List`中`::`运算符的匹配，例如`first :: second :: rest`白哦是将一个列表拆分成三份，第一个和第二元素和剩余元素组成的列表
+- 匹配元组：可以任意匹配n元组，匹配元素类型以及元素值，如果只关心某个元素，可以使用通配符或者变量
+
+```scala
+for (tuple <- List((0, 1), (0, 0), (0, 1, 0), (0, 1, 1), (1, 23, 25), ("hello", true, 0.5))) {
+  val result: String = tuple match {
+    case (a, b) => "" + a + ", " + b
+    case (0, _) => "第一个元素是0的二元组"
+    case (a, 1, _) => "中间元素是0的元素，且关心第一位元素的输出，a: " + a
+    case (_, _, z: Double) => "匹配三元组，最后一位是double"
+    case _ => "Something else"
+  }
+
+  println(result)
+}
+```
+
+###### 4. 变量声明中的模式匹配
+
+- 变量声明时可以进行模式匹配，同时对元素进行赋值操作
+- `val first :: second :: rest = List(12, 14, 15, 18)`，最终`rest`的值是`List(15, 18)`
+- `val (x, y) = (10, "hello")`，通常进行元组赋值
+
+###### 5. `for`推导式中的模式匹配
+
+- 指定特定元素的值，可以类似于循环哨卫的功能
+- 也可以匹配数量、值和类型
+
+```scala
+val list: List[(String, Int)] = List(("a", 12), ("b", 35), ("c", 27), ("a", 45))
+// 原本的遍历
+for (elem <- list) {
+  println(elem._1 + " " + elem._2)
+}
+// 将list元素直接定义为元组，对变量赋值
+for ((word, count) <- list) {
+  println(word + " " + count)
+}
+// 不考虑某个位置的变量，只遍历key或者value
+for ((word, _) <- list) {
+  println(word)
+}
+// 指定某个位置的值必须是多少
+for (("a", count) <- list) {
+  println(count)
+}	
+```
+
+###### 6. 匹配对象
+
+- 用模式匹配取匹配一个对象的内容，必须声明对象的伴生对象且声明其中的`unapply`方法用于对对象的属性进行拆解
+
+```scala
+object Test04_MatchObject {
+  def main(args: Array[String]): Unit = {
+    val student: Student = new Student("alice", 18)
+    //针对对象内容进行匹配
+    val result: String = student match {
+      case Student("alice", 18) => "Alice, 18"
+      case _ => "else"
+    }
+    println(result)
+  }
+}
+
+/**
+ * 定义类
+ *
+ * @param name 姓名
+ * @param age  年龄
+ */
+class Student(val name: String, val age: Int)
+
+object Student {
+  def apply(name: String, age: Int): Student = new Student(name, age)
+
+  // 必须实现unapply方法，用来对对象属性进行拆解
+  def unapply(student: Student): Option[(String, Int)] = {
+    if (student == null) {
+      None
+    } else {
+      Some((student.name, student.age))
+    }
+  }
+}
+```
+
+###### 7. 匹配样例类
+
+- 定义样例类只需要在类的声明前加`case`关键字
+- 样例类中定义在主构造器上的属性就默认为类的成员变量，且均声明为`val`
+- 样例类会自动生成伴生对象以及伴生对象中的`apply`和`unapply`方法
+
+```scala
+object Test05_MatchCaseClass {
+  def main(args: Array[String]): Unit = {
+    val student: Student1 = Student1("alice", 18)
+
+    // 针对对象内容进行匹配
+    val result: String = student match {
+      case Student1("alice", 18) => "Alice, 18"
+      case _ => "else"
+    }
+
+    println(result)
+  }
+}
+
+/**
+ * 声明样例类
+ *
+ * @param name 姓名
+ * @param age  年龄
+ */
+case class Student1(name: String, age: Int)
+```
+
+###### 8. 偏函数
+
+- 偏函数也是函数的一种，底层也是通过模式匹配实现的
+
+- 定义：`val 偏函数名: 偏函数类型[参数类型, 返回值类型] = { case语句 }`
+
+  ```scala
+  val partialFuncame: PartialFunction[List[Int], Option[Int]] = {
+    case x :: y :: _ => Some(y)
+  }
+  ```
+
+- 一般一个偏函数只能处理输入的一部分场景，实际中往往需要多个偏函数用以组合使用
+
+```scala
+object Test06_PartialFunction {
+  def main(args: Array[String]): Unit = {
+    val list: List[(String, Int)] = List(("a", 12), ("b", 14), ("c", 27), ("d", 13))
+
+    // 1.map实现key不变，value*2
+    val newList: List[(String, Int)] = list.map(tuple => (tuple._1, tuple._2 * 2))
+    println(newList)
+    println("==================================")
+
+    // 2.使用模式匹配对元组元素赋值，实现功能
+    val newList2: List[(String, Int)] = list.map(
+      tuple => {
+        tuple match {
+          case (word, count) => (word, count * 2)
+        }
+      }
+    )
+    println(newList2)
+    println("==================================")
+
+    // 3.用lambda表达式写法就是偏函数
+    val newList3: List[(String, Int)] = list.map {
+      case (word, count) => (word, count * 2)
+    }
+    println(newList3)
+    println("==================================")
+
+    // 4.偏函数的应用：绝对值
+    // 对输入数据分为不同的情形，正、负、零
+    val positiveAbs: PartialFunction[Int, Int] = {
+      case x if x > 0 => x
+    }
+    val negativeAbs: PartialFunction[Int, Int] = {
+      case x if x < 0 => -x
+    }
+    val zeroAbs: PartialFunction[Int, Int] = {
+      case 0 => 0
+    }
+
+    def abs(x: Int): Int = (positiveAbs orElse negativeAbs orElse zeroAbs) (x)
+
+    println(abs(4))
+    println("==================================")
+  }
+}
+```
+
 ##### 11. 异常处理
+
+- Scala的异常处理和Java的非常类似
+- `try`用于包围需要异常处理的内容，`catch`仅仅是关键字，将所有需要抛出的异常用`catch`包围，`finally`在Java中一样都会执行，一般用于对象的清理工作
+- Scala中的所有异常都是运行期异常，没有编译器异常
+- Scala的异常处理`catch`中用模式匹配的方式匹配异常，语法其实就是模式匹配中的类型匹配，所以越具体的异常要靠前，越普遍的异常要靠后
+- Scala中也使用`throw`关键字抛出异常，所有异常都是`Throwable`的子类
+- `throw`表达式的类型是`Nothing`，`Nothing`主要用在一个函数不能正常工作，抛出异常的时候用过返回值类型
+- Java中使用`throws`来声明该方法可能要抛出的异常，Scala中使用注解`@throws[ExceptionList]`来声明可能要抛出的异常类型
+
+```scala
+object Test01_Exception {
+  def main(args: Array[String]): Unit = {
+    try {
+      val n: Int = 10 / 0
+    } catch {
+      case e: ArithmeticException => {
+        println("发生算数异常")
+      }
+      case e: Exception => {
+        println("发生一般异常")
+      }
+    } finally {
+      println("处理结束")
+    }
+  }
+}
+```
 
 ##### 12. 隐式转换
 
+当Scala编译器第一次编译失败的时候，会在当前环境中查找能让代码编译通过的方法，用于将类型进行转换，实现二次编译，在进行二次编译时，就会发生隐式转换。
+
+###### 1. 隐式函数
+
+- 隐式转换可以在不需改动任何代码的情况下，扩展某个类的功能
+- 使用关键字`implicit`关键字声明的函数称之为隐式函数
+- 当调用对象功能时，编译错误，那么编译器会尝试在当前作用域范围内查找调用对应功能的转换规则，这个过程由编译器完成，所以叫做隐式转换，也叫做自动转换
+- 在当前作用域定义时需要在使用前定义
+
+###### 2. 隐式参数
+
+- 普通方法或函数中的参数通过`implicit`关键字声明为隐式参数
+- 调用该方法时，就可以传入该参数，编译器会在相应的作用域寻找符合条件的隐式值（集合排序方法的排序规则就是隐式参数）
+- 同一个作用域中，相同类型的隐式值只能有一个
+- 编译器按照隐式参数的类型去寻找对应类型的隐式值，与隐式值的名称无关
+- 隐式参数优先于默认参数，也就是说默认值和隐式参数可以同时存在，加上默认参数其实就相当于是两个默认值，但隐式参数优先级高于默认参数（个人觉得定义了隐式参数就没必要定义默认值了）
+- 隐式参数在底层其实是一种柯里化的表达，如果只有一个隐式参数，调用时一定不需要`()`，如果需要，需要在定义函数时隐式参数前加上`()`
+- 函数中定义隐式参数时，并不需要传入对应的值或者其他的，根据简化原则，可以不定义隐式参数，在内部调用隐式值时使用`implicitly[隐式值类型]`即可
+
+###### 3. 隐式类
+
+- 使用`implicit`声明类，隐式类同样可以扩展类的功能，也就是将类的构造方法声明为隐式转换函数
+- 是隐式函数的一个扩展，所以同一个作用域定义隐式转换函数和隐式类会冲突
+- 隐式类所带的构造参数有且只能有一个
+- 隐式类必须被定义在“类”或“伴生对象”或“包对象”里，即隐式类不能是顶级的
+
+```scala
+object Test02_Implicit {
+  def main(args: Array[String]): Unit = {
+    // 需要自己new对象
+    val new12: MyRichInt = new MyRichInt(12)
+    println(new12.myMax(15))
+    println("======================================")
+
+    // 1.隐式转换函数
+    implicit def convert(num: Int): MyRichInt = new MyRichInt(num)
+
+    println(12.myMax(15))
+    println("======================================")
+
+    // 2.隐式类
+    /**
+     * 自定义类
+     *
+     * @param self 类型Int
+     */
+    implicit class MyRichInt2(val self: Int) {
+      /**
+       * 求最大值
+       *
+       * @param n 比较对象
+       * @return
+       */
+      def myMax2(n: Int): Int = if (n < self) self else n
+
+      /**
+       * 求最小值
+       *
+       * @param n 比较对象
+       * @return
+       */
+      def myMin2(n: Int): Int = if (n < self) n else self
+    }
+    println(13.myMin2(14))
+    println("======================================")
+
+    // 3.隐式参数
+    implicit val str: String = "alice"
+    implicit val num: Int = 18
+
+    def sayHello(implicit name: String): Unit = {
+      println(s"hello, ${name}")
+    }
+
+    def sayHi()(implicit name: String = "bob"): Unit = {
+      println(s"hello, ${name}")
+    }
+
+    sayHello
+    sayHi()
+
+    println("======================================")
+
+    // 简便写法
+    def hiAge(): Unit = {
+      println(s"hi, ${implicitly[Int]}")
+    }
+    
+    hiAge()
+    println("======================================")
+  }
+}
+
+/**
+ * 自定义类
+ *
+ * @param self 类型Int
+ */
+class MyRichInt(val self: Int) {
+  /**
+   * 求最大值
+   *
+   * @param n 比较对象
+   * @return
+   */
+  def myMax(n: Int): Int = if (n < self) self else n
+
+  /**
+   * 求最小值
+   *
+   * @param n 比较对象
+   * @return
+   */
+  def myMin(n: Int): Int = if (n < self) n else self
+}
+```
+
+###### 4. 隐式解析机制
+
+- 首先会在当前代码作用域下查找隐式实体（隐式方法、隐式类、隐式对象）
+- 如果第一个规则查找失败，会继续在隐式参数的类型的作用域里面查找。（类型的作用域是指与该类型相关联的全部伴生对象以及该类型所在包的包对象）
+
 ##### 13. 泛型
+
+为什么要引入泛型，其实也可以使用统一的父类定义，在Scala中可以使用`Any`顶级类，但这样定义的话，如果针对于`Int`或`String`中相同的方法，例如`toString`还可以，根据多态调用自己实现的方法。那如果针对于其不同的方法呢？需要将`Any`类型强转到对应的子类，强转过程中可能会存在运行时异常，实现起来比较麻烦，所以才引入了泛型。
+
+###### 1. 泛型
+
+- 定义和使用泛型：`[TypeList]`
+- 常用于集合类型中用来支持不同元素类型
+- 定义时用`+-`表示协变和逆变，不加则表示不变
+
+###### 2. 协变和逆变
+
+- 协变：`class MyList[+I]`
+- 逆变：`class MyList[-T]`
+- 不变：`class MyList[T]`
+- 说明：`Son`是`Father`的子类
+  - 协变：`MyList[Son]`也是`MyList[Father]`的子类
+  - 逆变：`MyList[Son]`则是`MyList[Father]`的父类
+  - 不变：`MyList[Son]`和`MyList[Father]`无父子关系
+
+###### 3. 泛型上下限
+
+- 上限：`class PersonList[T <: Person]`，传入的泛型可以是`Person`也可以是`Person`的子类
+- 下限：`class PersonList[T >: Person]`，传入的泛型可以是`Person`也可以是`Person`的父类
+- 泛型的上下限的作用是对传入的泛型进行限定
+
+###### 4. 上下文限定
+
+- 语法：`def f[A: B](a: A) = println(a)`等同于`def f[A](a: A)(implicit arg: B[A]) = println(a)`
+- 上下文限定是泛型和隐式转换的结合产物，使用上下文限定`[A: Ordering]`之后，方法内无法使用隐式参数名调用隐式参数，需要通过`implicitly[Ordering[A]]`获取隐式变量
+
+```scala
+object Test03_Generics {
+  def main(args: Array[String]): Unit = {
+    // 1.协变和逆变
+    val child: Parent = new Child
+    // 集合之间没有父子关系：不变
+    // 所以想要让集合之间有父子关系，需要协变或逆变
+    val childList: MyCollection[Parent] = new MyCollection[Child]
+
+    // 2.上下限
+    def test[A <: Child](a: A): Unit = {
+      println(a.getClass.getName)
+    }
+    test[Child](new Child)
+    test[Child](new SubChild)
+  }
+}
+
+// 定义继承关系
+class Parent {}
+class Child extends Parent {}
+class SubChild extends Child {}
+
+// 定义泛型的集合类型
+class MyCollection[+E] {}
+```
+
