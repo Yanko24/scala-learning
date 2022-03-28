@@ -12,6 +12,13 @@ object Test03_Generics {
     // 集合之间没有父子关系：不变
     // 所以想要让集合之间有父子关系，需要协变或逆变
     val childList: MyCollection[Parent] = new MyCollection[Child]
+
+    // 2.上下限
+    def test[A <: Child](a: A): Unit = {
+      println(a.getClass.getName)
+    }
+    test[Child](new Child)
+    test[Child](new SubChild)
   }
 }
 
